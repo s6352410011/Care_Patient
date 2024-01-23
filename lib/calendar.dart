@@ -12,7 +12,7 @@ class _CalendarPageState extends State<CalendarPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ปฏิทิน'),
+        title: const Text('ปฏิทิน01'),
       ),
       body: const Center(
         child: Text('นี่คือหน้าปฏิทิน'),
