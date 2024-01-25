@@ -232,6 +232,90 @@ class LoginUI extends StatelessWidget {
                       height: 30,
                     ),
                     FadeInUp(
+                      duration: Duration(milliseconds: 1800),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          // โค้ดเข้าสู่ระบบด้วย Google
+                        },
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(200, 50),
+                          padding: EdgeInsets.symmetric(vertical: 16.0),
+                          primary: const Color.fromARGB(
+                              255, 231, 35, 35), // สีพื้นหลังของปุ่ม
+                          onPrimary: Colors.black, // สีของข้อความบนปุ่ม
+                          elevation: 5, // เงาของปุ่ม
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            side: BorderSide(
+                                color: const Color.fromARGB(
+                                    255, 138, 24, 24)), // สีเส้นขอบของปุ่ม
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              'assets/g.png',
+                              height: 10,
+                              width: 10,
+                            ),
+                            SizedBox(
+                                width: 8), // ระยะห่างระหว่างไอคอนกับข้อความ
+                            Text(
+                              "Login with Google",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 30), // ระยะห่างด้านบนของปุ่ม
+                    FadeInUp(
+                      duration: Duration(milliseconds: 1800),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          // โค้ดเข้าสู่ระบบด้วย Facebook
+                        },
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(200, 50),
+                          padding: EdgeInsets.symmetric(vertical: 16.0),
+                          primary: Colors.blue, // สีพื้นหลังของปุ่ม
+                          onPrimary: Colors.white, // สีของข้อความบนปุ่ม
+                          elevation: 5, // เงาของปุ่ม
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            side: BorderSide(
+                                color: Colors.blue), // สีเส้นขอบของปุ่ม
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.facebook,
+                              color: Colors.white,
+                            ),
+                            SizedBox(
+                                width: 8), // ระยะห่างระหว่างไอคอนกับข้อความ
+                            Text(
+                              "Login with Facebook",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    SizedBox(
+                      height: 30,
+                    ),
+                    FadeInUp(
                       duration: Duration(milliseconds: 2000),
                       child: Align(
                         alignment: Alignment.centerRight,
