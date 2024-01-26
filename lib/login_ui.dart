@@ -19,7 +19,7 @@ class LoginUI extends StatelessWidget {
         child: Container(
           child: Column(
             children: <Widget>[
-              SizedBox(height: 150),
+              SizedBox(height: 100),
               Container(
                 height: 300,
                 width: 350,
@@ -30,7 +30,7 @@ class LoginUI extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 50),
+              SizedBox(height: 10),
               Padding(
                 padding: EdgeInsets.all(30.0),
                 child: Column(
@@ -190,7 +190,7 @@ class LoginUI extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     FadeInUp(
                       duration: Duration(milliseconds: 1900),
@@ -229,7 +229,7 @@ class LoginUI extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 30,
+                      height: 50,
                     ),
                     FadeInUp(
                       duration: Duration(milliseconds: 1800),
@@ -240,24 +240,22 @@ class LoginUI extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                           minimumSize: Size(200, 50),
                           padding: EdgeInsets.symmetric(vertical: 16.0),
-                          primary: const Color.fromARGB(
-                              255, 231, 35, 35), // สีพื้นหลังของปุ่ม
-                          onPrimary: Colors.black, // สีของข้อความบนปุ่ม
+                          primary: Colors.red, // สีพื้นหลังของปุ่ม
+                          onPrimary: Colors.white, // สีของข้อความบนปุ่ม
                           elevation: 5, // เงาของปุ่ม
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                             side: BorderSide(
-                                color: const Color.fromARGB(
-                                    255, 138, 24, 24)), // สีเส้นขอบของปุ่ม
+                                color: Colors.red), // สีเส้นขอบของปุ่ม
                           ),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Image.asset(
-                              'assets/g.png',
-                              height: 10,
-                              width: 10,
+                              'assets/images/g.png',
+                              height: 30,
+                              width: 30,
                             ),
                             SizedBox(
                                 width: 8), // ระยะห่างระหว่างไอคอนกับข้อความ
@@ -272,7 +270,7 @@ class LoginUI extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 30), // ระยะห่างด้านบนของปุ่ม
+                    SizedBox(height: 10), // ระยะห่างด้านบนของปุ่ม
                     FadeInUp(
                       duration: Duration(milliseconds: 1800),
                       child: ElevatedButton(
