@@ -68,7 +68,7 @@ class LoginUI extends StatelessWidget {
                                 controller: _emailController,
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
-                                  hintText: "Email or Phone number",
+                                  hintText: "Email",
                                   hintStyle: TextStyle(color: Colors.grey[700]),
                                 ),
                               ),
@@ -104,7 +104,7 @@ class LoginUI extends StatelessWidget {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-                                      title: Text('Select Type'),
+                                      title: Text('เลือกประเภทที่คุณเป็น'),
                                       content: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
@@ -118,6 +118,20 @@ class LoginUI extends StatelessWidget {
                                                 ),
                                               );
                                             },
+                                            style: ElevatedButton.styleFrom(
+                                              primary: Colors.blue,
+                                              onPrimary: Colors.white,
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 15, horizontal: 30),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                              ),
+                                              side: BorderSide(
+                                                color: Colors.blue,
+                                                width: 2,
+                                              ),
+                                            ),
                                             child: Text('คนดูแล'),
                                           ),
                                           SizedBox(
@@ -133,6 +147,20 @@ class LoginUI extends StatelessWidget {
                                                 ),
                                               );
                                             },
+                                            style: ElevatedButton.styleFrom(
+                                              primary: Colors.blue,
+                                              onPrimary: Colors.white,
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 15, horizontal: 30),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                              ),
+                                              side: BorderSide(
+                                                color: Colors.blue,
+                                                width: 2,
+                                              ),
+                                            ),
                                             child: Text('ผู้ป่วย'),
                                           ),
                                         ],
@@ -229,7 +257,21 @@ class LoginUI extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 50,
+                      height: 30,
+                    ),
+                    FadeInUp(
+                      duration: Duration(milliseconds: 1800),
+                      child: Text(
+                        "— OR LOGIN WITH —",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+
+                    SizedBox(
+                      height: 30,
                     ),
                     FadeInUp(
                       duration: Duration(milliseconds: 1800),
