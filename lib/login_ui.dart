@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:project_final_67/forgot_password_ui.dart';
-import 'home_1_ui.dart';
-import 'home_2_ui.dart';
+import 'home_caregiver_ui.dart';
+import 'home_patient_ui.dart';
 import 'package:project_final_67/register_ui.dart';
 import 'color.dart';
 
