@@ -4,111 +4,9 @@ import 'package:project_final_67/page/calendar.dart';
 import 'package:project_final_67/page/data_patient_ui.dart';
 import 'package:project_final_67/page/historywork_ui.dart';
 import 'package:project_final_67/page/map_ui.dart';
-import 'package:project_final_67/page/review_ui.dart';
-import 'package:project_final_67/navbar/notifications_ui.dart';
+import 'package:project_final_67/page/review_ui.dart'; // นำเข้าไลบรารีที่เกี่ยวข้อง
 
-class HomeCaregiverUI extends StatefulWidget {
-  const HomeCaregiverUI({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Navigation Bar',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: HomeCaregiverUI(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-
-  State<HomeCaregiverUI> createState() => _HomeCaregiverUIState();
-}
-
-class _HomeCaregiverUIState extends State<HomeCaregiverUI> {
-  int _selectedIndex = 2;
-
-  static final List<Widget> _widgetOptions = <Widget>[
-    Text('Progressive'),
-    NotificationsUI(),
-    HomeScreen(),
-    Text('Messages'),
-    Text('Account'),
-  ];
-
-  String _getAppBarTitle(int index) {
-    switch (index) {
-      case 0:
-        return 'Working';
-      case 1:
-        return 'Notifications';
-      case 2:
-        return 'Home';
-      case 3:
-        return 'Messages';
-      case 4:
-        return 'Account';
-      default:
-        return 'Caretaker';
-    }
-  }
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: allColor.pr,
-        title: Text(
-          _getAppBarTitle(_selectedIndex),
-          style: TextStyle(
-            color: Colors.white, // สีที่ต้องการ
-            fontWeight: FontWeight.bold, // ตัวหนา
-            fontSize: 24, // ขนาดตัวอักษร
-          ),
-        ),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.business_center),
-            label: 'Working',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
-            label: 'Notifications',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.message),
-            label: 'Messages',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
-            label: 'Account',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey,
-        onTap: _onItemTapped,
-      ),
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
+class HomePatientUI extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -121,11 +19,11 @@ class HomeScreen extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-              buildRow(context, ['ปฏิทิน', 'ประวัติการทำงาน']),
+              buildRow(context, ['ปฏิทิน', 'ประวัติการว่าจ้าง']),
               const SizedBox(height: 10.0),
-              buildRow(context, ['ข้อมูลผู้ป่วย', 'แผนที่', 'คะแนนรีวิว']),
+              buildRow(context, ['ข้อมูลผู้ดูแล', 'แผนที่', 'คะแนนรีวิว']),
               const SizedBox(height: 20.0),
-              buildRowWithNames(context, ['รายชื่อผู้ป่วย', 'รายชื่อทั้งหมด']),
+              buildRowWithNames(context, ['รายชื่อผู้ดูแล', 'รายชื่อทั้งหมด']),
             ],
           ),
         ),
@@ -146,11 +44,11 @@ class HomeScreen extends StatelessWidget {
                 iconData = Icons.calendar_today;
                 iconColor = Colors.blue;
                 break;
-              case 'ประวัติการทำงาน':
+              case 'ประวัติการว่าจ้าง':
                 iconData = Icons.history;
                 iconColor = Colors.green;
                 break;
-              case 'ข้อมูลผู้ป่วย':
+              case 'ข้อมูลผู้ดูแล':
                 iconData = Icons.person;
                 iconColor = Colors.orange;
                 break;
@@ -182,7 +80,7 @@ class HomeScreen extends StatelessWidget {
                           ),
                         );
                         break;
-                      case 'ประวัติการทำงาน':
+                      case 'ประวัติการว่าจ้าง':
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -190,7 +88,7 @@ class HomeScreen extends StatelessWidget {
                           ),
                         );
                         break;
-                      case 'ข้อมูลผู้ป่วย':
+                      case 'ข้อมูลผู้ดูแล':
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -229,7 +127,7 @@ class HomeScreen extends StatelessWidget {
                         color: Color.fromARGB(255, 255, 255, 255),
                       ),
                     ),
-                    primary: Colors.lightBlueAccent,
+                    primary: allColor.sc,
                   ),
                 ),
               ),
@@ -253,13 +151,13 @@ class HomeScreen extends StatelessWidget {
         Color iconColor;
 
         switch (label) {
-          case 'รายชื่อผู้ป่วย':
-            iconData = Icons.person;
-            iconColor = Colors.orange;
+          case 'รายชื่อผู้ดูแล':
+            iconData = Icons.recent_actors;
+            iconColor = allColor.sc;
             break;
           case 'รายชื่อทั้งหมด':
             iconData = Icons.list;
-            iconColor = Colors.blue;
+            iconColor = allColor.sc;
             break;
           default:
             iconData = Icons.error;
@@ -285,18 +183,22 @@ class HomeScreen extends StatelessWidget {
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.amber,
+                    color: allColor.pr,
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(20),
                     child: Row(
-                      mainAxisAlignment: label == 'รายชื่อผู้ป่วย'
+                      mainAxisAlignment: label == 'รายชื่อผู้ดูแล'
                           ? MainAxisAlignment.start
                           : MainAxisAlignment.end,
                       children: [
                         Icon(iconData, color: iconColor),
                         SizedBox(width: 5),
-                        Text(label),
+                        Text(
+                          label,
+                          style:
+                              TextStyle(color: Colors.white), // กำหนดสีข้อความ
+                        ),
                       ],
                     ),
                   ),

@@ -2,10 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:project_final_67/forgot_password_ui.dart';
-import 'home_caregiver_ui.dart';
-import 'home_patient_ui.dart';
+import 'package:project_final_67/home_main_caregiver_ui.dart';
+import 'package:project_final_67/home_main_patient_ui.dart';
 import 'package:project_final_67/register_ui.dart';
-import 'color.dart';
+import 'package:project_final_67/color.dart';
 
 class LoginUI extends StatelessWidget {
   TextEditingController _emailController = TextEditingController();
@@ -114,7 +114,7 @@ class LoginUI extends StatelessWidget {
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
-                                                      HomeCaregiverUI(),
+                                                      HomeMainCareUI(),
                                                 ),
                                               );
                                             },
@@ -143,7 +143,7 @@ class LoginUI extends StatelessWidget {
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
-                                                      HomePatientUI(),
+                                                      HomeMainPatientUI(),
                                                 ),
                                               );
                                             },
