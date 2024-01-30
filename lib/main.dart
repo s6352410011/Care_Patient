@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_final_67/color.dart';
 import 'package:project_final_67/home_main_patient_ui.dart';
+import 'package:project_final_67/page/historywork_ui.dart';
 import 'package:project_final_67/register_ui.dart';
 import 'package:project_final_67/forgot_password_ui.dart';
 import 'package:project_final_67/home_main_caregiver_ui.dart';
@@ -19,7 +20,7 @@ class Main extends StatelessWidget {
         canvasColor: allColor
             .pr, // กำหนดสีพื้นหลังที่ต้องการให้กับ Bottom Navigation Bar
       ),
-      home: LoginUI(),
+      home: HomeMainCareUI(),
     );
   }
 }

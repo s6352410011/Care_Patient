@@ -1,21 +1,87 @@
 import 'package:flutter/material.dart';
+import 'package:project_final_67/color.dart';
 
 class HistoryWorkPage extends StatefulWidget {
-  const HistoryWorkPage({super.key});
+  const HistoryWorkPage({Key? key}) : super(key: key);
 
   @override
   State<HistoryWorkPage> createState() => _HistoryWorkPageState();
 }
 
-class _HistoryWorkPageState extends State<HistoryWorkPage> {
+class _HistoryWorkPageState extends State<HistoryWorkPage>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ประวัติการทำงาน'),
+        title: Text(
+          'ประวัติการทำงาน',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        backgroundColor: allColor.pr,
+        bottom: TabBar(
+          controller: _tabController,
+          tabs: [
+            Tab(
+              child: Text(
+                'เสร็จสิ้น',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            Tab(
+              child: Text(
+                'ล้มเหลว',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ],
+          indicatorColor: Colors.white,
+        ),
       ),
-      body: const Center(
-        child: Text('ประวัติการทำงาน'),
+      body: Container(
+        color: allColor.bg,
+        child: TabBarView(
+          controller: _tabController,
+          children: [
+            Center(
+              child: Text(
+                'เสร็จสิ้น',
+                style: TextStyle(
+                  color: allColor.sc,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            Center(
+              child: Text(
+                'ล้มเหลว',
+                style: TextStyle(
+                  color: allColor.sc,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
