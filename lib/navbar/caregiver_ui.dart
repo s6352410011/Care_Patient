@@ -24,6 +24,7 @@ class HomeCaregiverUI extends StatelessWidget {
               buildRow(context, ['ข้อมูลผู้ป่วย', 'แผนที่', 'คะแนนรีวิว']),
               const SizedBox(height: 20.0),
               buildRowWithNames(context, ['รายชื่อผู้ป่วย', 'รายชื่อทั้งหมด']),
+              buildRowWithCard(context),
             ],
           ),
         ),
@@ -65,7 +66,6 @@ class HomeCaregiverUI extends StatelessWidget {
                 iconColor = Colors.grey;
                 break;
             }
-
             return Expanded(
               child: Container(
                 height: 60.0,
@@ -135,9 +135,6 @@ class HomeCaregiverUI extends StatelessWidget {
           })
           .expand((widget) => [
                 widget,
-                SizedBox(
-                  width: 0,
-                )
               ])
           .toList(),
     );
@@ -208,6 +205,65 @@ class HomeCaregiverUI extends StatelessWidget {
           ),
         );
       }).toList(),
+    );
+  }
+
+  Widget buildRowWithCard(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(10.0), // ระยะห่าง 10 จากขอบหน้าจอ
+        child: InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ReviewPage()),
+            );
+          },
+          child: Card(
+            color: allColor.sc, // สีพื้นหลังของการ์ด
+            elevation: 20, // ระดับการยกขึ้นของการ์ด
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15), // ทำให้มีขอบโค้ง
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                ListTile(
+                  leading: Icon(Icons.album),
+                  title: Text(
+                    'ชื่อผู้ป่วย',
+                    style: TextStyle(
+                      fontSize: 24, // ขนาดตัวอักษร
+                      color: Colors.white, // สีข้อความ
+                      fontWeight: FontWeight.bold, // ตัวหนา
+                    ),
+                    textAlign: TextAlign.center, // จัดวางข้อความตรงกลาง
+                  ),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      buildText('อายุ ', '85' + 'ปี'),
+                      buildText('โรคประจำตัว ', 'Alzheimer'),
+                      buildText('ความต้องการในการดูแล ', 'การดูแลสุขภาพ'),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildText(String labelText, String valueText) {
+    return Text(
+      '$labelText: $valueText',
+      style: TextStyle(
+        fontSize: 14, // ขนาดตัวอักษร
+        color: Colors.white, // สีข้อความ
+        //fontWeight: FontWeight.bold, // ตัวหนา
+      ),
     );
   }
 }
