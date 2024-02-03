@@ -41,24 +41,52 @@ class _ReviewPageState extends State<ReviewPage> {
       body: Column(
         children: [
           Expanded(
-            child: ListView.builder(
-              itemCount: 10, // จำนวนรีวิว
-              itemBuilder: (context, index) {
-                return ListTile(
-                  leading: CircleAvatar(
-                    child: Text('${index + 1}'),
-                  ),
-                  title: Text('รีวิวที่ ${index + 1}'), // ข้อความรีวิว
-                  subtitle:
-                      Text('คำอธิบายรีวิวที่ ${index + 1}'), // คำอธิบายรีวิว
-                  trailing: Icon(Icons
-                      .arrow_forward_ios), // ไอคอนเพื่อนำทางไปยังรายละเอียดเพิ่มเติม
-                  onTap: () {
-                    // การทำงานเมื่อกดรีวิว
-                    // คุณสามารถเพิ่มโค้ดที่นี่เพื่อเปิดหน้ารีวิวเพิ่มเติมหรือทำอะไรก็ตามตามที่คุณต้องการ
-                  },
-                );
-              },
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: ListView.builder(
+                itemCount: 5, // จำนวนรีวิว
+                itemBuilder: (context, index) {
+                  return Card(
+                    color: allColor.sc, // สีพื้นหลังของการ์ด
+                    elevation: 5, // ความโค้งของการ์ด
+                    shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(15), // กำหนดความโค้งของมุมการ์ด
+                    ),
+                    child: Container(
+                      padding:
+                          EdgeInsets.all(16), // ระยะห่างของข้อความภายในการ์ด
+                      child: ListTile(
+                        title: Text(
+                          'รีวิวที่ ${index + 1}',
+                          style: TextStyle(
+                            color: Colors.white, // สีข้อความ
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        subtitle: Text(
+                          'คำอธิบายรีวิวที่ ${index + 1}',
+                          style: TextStyle(
+                            color: Colors.white70, // สีข้อความ
+                          ),
+                        ),
+                        leading: CircleAvatar(
+                          child: Text('${index + 1}'),
+                          backgroundColor:
+                              Colors.white, // สีพื้นหลังของ CircleAvatar
+                        ),
+                        trailing: Icon(
+                          Icons.arrow_forward_ios,
+                          color: Colors.white, // สีของไอคอน
+                        ),
+                        onTap: () {
+                          // โค้ดเมื่อคลิกที่รีวิว
+                        },
+                      ),
+                    ),
+                  );
+                },
+              ),
             ),
           ),
           Padding(
@@ -74,7 +102,10 @@ class _ReviewPageState extends State<ReviewPage> {
                   ),
                 ),
                 IconButton(
-                  icon: Icon(Icons.send),
+                  icon: Icon(
+                    Icons.send,
+                    color: allColor.sc, // สีของไอคอน
+                  ),
                   onPressed: () {
                     // การทำงานเมื่อกดปุ่มส่งรีวิว
                     String reviewText = _reviewController.text;

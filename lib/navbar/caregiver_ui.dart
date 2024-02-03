@@ -76,7 +76,7 @@ class HomeCaregiverUI extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => CalendarPage(),
+                            builder: (context) => CalendarUI(),
                           ),
                         );
                         break;
@@ -233,7 +233,7 @@ class HomeCaregiverUI extends StatelessWidget {
                   title: Text(
                     'ชื่อผู้ป่วย',
                     style: TextStyle(
-                      fontSize: 24, // ขนาดตัวอักษร
+                      fontSize: 20, // ขนาดตัวอักษร
                       color: Colors.white, // สีข้อความ
                       fontWeight: FontWeight.bold, // ตัวหนา
                     ),

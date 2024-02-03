@@ -7,8 +7,12 @@ import 'package:project_final_67/forgot_password_ui.dart';
 import 'package:project_final_67/home_main_caregiver_ui.dart';
 import 'package:project_final_67/login_ui.dart';
 import 'package:project_final_67/test.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting('th_TH', null); // เลือก locale ตามต้องการ
   runApp(Main());
 }
 
