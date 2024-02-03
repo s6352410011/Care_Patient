@@ -48,15 +48,19 @@ class _CalendarUIState extends State<CalendarUI> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Colors.grey[200], // กำหนดสีพื้นหลังของ AlertDialog
           title: Text('Add Your Event'),
-          content: TextFormField(
-            controller: _eventController,
-            decoration: InputDecoration(
-              hintText: 'Enter your event',
+          content: Container(
+            width: 300,
+            child: TextFormField(
+              controller: _eventController,
+              decoration: InputDecoration(
+                hintText: 'Enter your event',
+              ),
+              onSaved: (value) {
+                // Save the value entered by the user (currently not used)
+              },
             ),
-            onSaved: (value) {
-              // Save the value entered by the user (currently not used)
-            },
           ),
           actions: <Widget>[
             TextButton(
@@ -102,6 +106,10 @@ class _CalendarUIState extends State<CalendarUI> {
       appBar: AppBar(
         title: Text('Calendar'),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _addEvent,
+        child: Icon(Icons.add),
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -138,25 +146,17 @@ class _CalendarUIState extends State<CalendarUI> {
                 _focusedDay = focusedDay;
               },
             ),
-            SizedBox(height: 20),
-            Ink(
-              decoration: ShapeDecoration(
-                color: Colors.blue,
-                shape: CircleBorder(),
-              ),
-              child: IconButton(
-                onPressed: _addEvent,
-                icon: Icon(Icons.add),
-                iconSize: 32,
-                color: Colors.white,
+            Divider(
+              height: 20.0, // กำหนดความสูงของเส้นขั้น
+              color: Colors.grey[300], // สีของเส้นขั้น
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20, top: 5),
+              child: Text(
+                'Events :',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
-            SizedBox(height: 20),
-            Text(
-              'Events:',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 10),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: _events.entries.map((entry) {
@@ -165,115 +165,123 @@ class _CalendarUIState extends State<CalendarUI> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 4),
-                        child: Text(
-                          DateFormat('dd-MM-yyyy').format(entry.key),
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                        padding: const EdgeInsets.all(8.0),
+                        child: Card(
+                          color: _selectedDay == entry.key
+                              ? Colors.grey[300]
+                              : Colors.transparent,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: entry.value.length,
+                            itemBuilder: (context, index) {
+                              final event = entry.value[index];
+                              return ListTile(
+                                title: Text(
+                                  event,
+                                  style: TextStyle(
+                                    fontSize: 20, // ปรับขนาดตัวอักษรตามต้องการ
+                                  ),
+                                ),
+                                trailing: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    IconButton(
+                                      icon: Icon(Icons.edit),
+                                      onPressed: () {
+                                        // Show edit event dialog
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: Text('Edit Event'),
+                                              content: TextFormField(
+                                                controller: _eventController,
+                                                decoration: InputDecoration(
+                                                  hintText: 'Enter your event',
+                                                ),
+                                                onSaved: (value) {
+                                                  // Save the value entered by the user (currently not used)
+                                                },
+                                              ),
+                                              actions: <Widget>[
+                                                TextButton(
+                                                  onPressed: () {
+                                                    // Clear the text field and close the dialog
+                                                    _eventController.clear();
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: Text('Cancel'),
+                                                ),
+                                                TextButton(
+                                                  onPressed: () {
+                                                    // Update the event
+                                                    if (_selectedDay != null &&
+                                                        _eventController
+                                                            .text.isNotEmpty) {
+                                                      setState(() {
+                                                        final updatedEvent =
+                                                            _eventController
+                                                                .text;
+                                                        _events[_selectedDay]![
+                                                                index] =
+                                                            updatedEvent;
+                                                      });
+                                                    }
+                                                    // Clear the text field and close the dialog
+                                                    _eventController.clear();
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: Text('Save'),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      },
+                                    ),
+                                    IconButton(
+                                      icon: Icon(Icons.delete),
+                                      onPressed: () {
+                                        // Show confirmation dialog
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: Text("Confirmation"),
+                                              content: Text(
+                                                  "Are you sure you want to delete this event?"),
+                                              actions: <Widget>[
+                                                TextButton(
+                                                  child: Text("Cancel"),
+                                                  onPressed: () {
+                                                    // Close the dialog
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                ),
+                                                TextButton(
+                                                  child: Text("OK"),
+                                                  onPressed: () {
+                                                    // Delete the event
+                                                    setState(() {
+                                                      _events[entry.key]!
+                                                          .remove(event);
+                                                    });
+                                                    // Close the dialog
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
                         ),
-                      ),
-                      ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: entry.value.length,
-                        itemBuilder: (context, index) {
-                          final event = entry.value[index];
-                          return ListTile(
-                            title: Text(event),
-                            trailing: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                IconButton(
-                                  icon: Icon(Icons.edit),
-                                  onPressed: () {
-                                    // Show edit event dialog
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          title: Text('Edit Event'),
-                                          content: TextFormField(
-                                            controller: _eventController,
-                                            decoration: InputDecoration(
-                                              hintText: 'Enter your event',
-                                            ),
-                                            onSaved: (value) {
-                                              // Save the value entered by the user (currently not used)
-                                            },
-                                          ),
-                                          actions: <Widget>[
-                                            TextButton(
-                                              onPressed: () {
-                                                // Clear the text field and close the dialog
-                                                _eventController.clear();
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: Text('Cancel'),
-                                            ),
-                                            TextButton(
-                                              onPressed: () {
-                                                // Update the event
-                                                if (_selectedDay != null &&
-                                                    _eventController
-                                                        .text.isNotEmpty) {
-                                                  setState(() {
-                                                    final updatedEvent =
-                                                        _eventController.text;
-                                                    _events[_selectedDay]![
-                                                        index] = updatedEvent;
-                                                  });
-                                                }
-                                                // Clear the text field and close the dialog
-                                                _eventController.clear();
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: Text('Save'),
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    );
-                                  },
-                                ),
-                                IconButton(
-                                  icon: Icon(Icons.delete),
-                                  onPressed: () {
-                                    // Show confirmation dialog
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          title: Text("Confirmation"),
-                                          content: Text(
-                                              "Are you sure you want to delete this event?"),
-                                          actions: <Widget>[
-                                            TextButton(
-                                              child: Text("Cancel"),
-                                              onPressed: () {
-                                                // Close the dialog
-                                                Navigator.of(context).pop();
-                                              },
-                                            ),
-                                            TextButton(
-                                              child: Text("OK"),
-                                              onPressed: () {
-                                                // Delete the event
-                                                setState(() {
-                                                  _events[entry.key]!
-                                                      .remove(event);
-                                                });
-                                                // Close the dialog
-                                                Navigator.of(context).pop();
-                                              },
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    );
-                                  },
-                                ),
-                              ],
-                            ),
-                          );
-                        },
                       ),
                     ],
                   );
