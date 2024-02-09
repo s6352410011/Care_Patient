@@ -7,9 +7,12 @@ import 'package:project_final_67/home_main_patient_ui.dart';
 import 'package:project_final_67/register_ui.dart';
 import 'package:project_final_67/color.dart';
 
+// ignore: must_be_immutable
 class LoginUI extends StatelessWidget {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+
+  LoginUI({super.key});
 
   @override
   Widget build(BuildContext context) {

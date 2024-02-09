@@ -3,7 +3,6 @@ import 'package:project_final_67/color.dart';
 import 'package:project_final_67/navbar/patient_ui.dart';
 import 'package:project_final_67/navbar/progressive_ui.dart';
 import 'package:project_final_67/navbar/notifications_ui.dart';
-import 'package:project_final_67/navbar/caregiver_ui.dart';
 import 'package:project_final_67/navbar/messenger_ui.dart';
 import 'package:project_final_67/navbar/account_ui.dart';
 
