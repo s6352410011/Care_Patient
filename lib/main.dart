@@ -25,7 +25,7 @@ class Main extends StatelessWidget {
         canvasColor: allColor
             .pr, // กำหนดสีพื้นหลังที่ต้องการให้กับ Bottom Navigation Bar
       ),
-      home: HomeMainPatientUI(),
+      home: LoginUI(),
     );
   }
 }

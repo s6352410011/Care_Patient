@@ -18,86 +18,111 @@ class _AccountUIState extends State<AccountUI> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: ListView(
+          padding: EdgeInsets.all(16),
           children: [
             CircleAvatar(
               radius: 100,
-              backgroundImage: AssetImage(
-                  'assets/user_image.jpg'), // เปลี่ยนเป็นรูปของผู้ใช้
+              backgroundImage: AssetImage('assets/user_image.jpg'),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 30),
             Text(
               'ชื่อผู้ใช้',
               style: TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
               ),
+
             ),
             SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.work,
-                  color: Colors.brown,
-                ),
-                SizedBox(width: 10),
-                Text(
-                  'Active',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: isActive ? Colors.green : Colors.red,
-                  ),
-                ),
-                SizedBox(width: 10),
-                Switch(
-                  value: isActive,
-                  onChanged: (value) {
-                    setState(() {
-                      isActive = value;
-                    });
-                  },
-                ),
-              ],
-            ),
-            SizedBox(height: 10),
-            InkWell(
+            GestureDetector(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          AccountSettingUI()), // เปลี่ยน YourNextPage() เป็นหน้าที่ต้องการไป
-                );
+                setState(() {
+                  isActive = !isActive;
+                });
               },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.settings, // ไอคอน Account Setting
-                    color: Colors.blue, // สีไอคอน Account Setting
+              child: Container(
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(75, 158, 158, 158),
+                  borderRadius: BorderRadius.circular(
+                      10.0), // Adjust the radius as needed
+                  border: Border.all(
+                    color: Colors.black, // Color of the border
+                    width: 1.0, // Width of the border
                   ),
-                  SizedBox(width: 10),
-                  Text(
-                    'Account Setting ',
-                    style: TextStyle(fontSize: 20, color: Colors.blue),
+                ), // Set background color
+                child: ListTile(
+                  leading: Icon(
+                    Icons.work,
+                    color: Colors.brown,
                   ),
-                  Icon(Icons.arrow_forward), // ไอคอนลูกศรไปข้างหน้า
-                ],
+                  title: Text(
+                    'Activetion',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: isActive ? Colors.green : Colors.red,
+                    ),
+                  ),
+                  trailing: Switch(
+                    value: isActive,
+                    onChanged: (value) {
+                      setState(() {
+                        isActive = value;
+                      });
+                    },
+                  ),
+                ),
               ),
             ),
-            SizedBox(height: 300),
+            SizedBox(height: 10),
+            Container(
+              decoration: BoxDecoration(
+                color:const Color.fromARGB(75, 158, 158, 158),
+                borderRadius:
+                    BorderRadius.circular(10.0), // Adjust the radius as needed
+                border: Border.all(
+                  color: Colors.black, // Color of the border
+                  width: 1.0, // Width of the border
+                ),
+              ),
+              child: ListTile(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AccountSettingUI(),
+                    ),
+                  );
+                },
+                leading: Icon(
+                  Icons.settings,
+                  color: Colors.blue,
+                ),
+                title: Text(
+                  'Account Setting',
+                  style: TextStyle(fontSize: 20, color: Colors.blue),
+                ),
+                trailing: Icon(Icons.arrow_forward),
+              ),
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
             ElevatedButton(
               onPressed: () {
-                // ทำอะไรสักอย่างเมื่อกดปุ่ม Reset Password
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => ResetPassword()),
                 );
               },
               style: ElevatedButton.styleFrom(
-                primary: Colors.green, // สีปุ่มเขียว
+                primary: Colors.green,
+                fixedSize: Size(200, 50),
               ),
               child:
                   Text('Reset Password', style: TextStyle(color: Colors.white)),
@@ -113,7 +138,7 @@ class _AccountUIState extends State<AccountUI> {
                       actions: [
                         TextButton(
                           onPressed: () {
-                            Navigator.of(context).pop(); // ปิดหน้าต่างแจ้งเตือน
+                            Navigator.of(context).pop();
                           },
                           child: Text('Cancel'),
                         ),
@@ -122,8 +147,8 @@ class _AccountUIState extends State<AccountUI> {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      LoginUI()), // หน้า Home หรือหน้าอื่นๆที่คุณต้องการ
+                                builder: (context) => LoginUI(),
+                              ),
                             );
                           },
                           child: Text('OK'),
@@ -134,14 +159,15 @@ class _AccountUIState extends State<AccountUI> {
                 );
               },
               style: ElevatedButton.styleFrom(
-                primary: Colors.red, // สีปุ่มแดง
+                primary: Colors.red,
+                fixedSize: Size(200, 50),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(
-                    Icons.logout, // ไอคอน Logout
-                    color: Colors.white, // เปลี่ยนสีของไอคอนเป็นสีขาว
+                    Icons.logout,
+                    color: Colors.white,
                   ),
                   SizedBox(width: 5),
                   Text('Logout', style: TextStyle(color: Colors.white)),

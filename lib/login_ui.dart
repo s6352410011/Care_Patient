@@ -7,12 +7,16 @@ import 'package:project_final_67/home_main_patient_ui.dart';
 import 'package:project_final_67/register_ui.dart';
 import 'package:project_final_67/color.dart';
 
-// ignore: must_be_immutable
-class LoginUI extends StatelessWidget {
+class LoginUI extends StatefulWidget {
+  const LoginUI({super.key});
+
+  @override
+  State<LoginUI> createState() => _LoginUIState();
+}
+
+class _LoginUIState extends State<LoginUI> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
-
-  LoginUI({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -106,68 +110,72 @@ class LoginUI extends StatelessWidget {
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: Text('เลือกประเภทที่คุณเป็น'),
-                                      content: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          ElevatedButton(
-                                            onPressed: () {
-                                              Navigator.pushReplacement(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      HomeMainCareUI(),
+                                    int? _selectedOption;
+                                    return StatefulBuilder(
+                                      builder: (BuildContext context,
+                                          StateSetter setState) {
+                                        return AlertDialog(
+                                          title: Text('เลือกประเภทที่คุณเป็น'),
+                                          content: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              ListTile(
+                                                title: Text('คนดูแล'),
+                                                leading: Radio(
+                                                  value: 0,
+                                                  groupValue: _selectedOption,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      _selectedOption =
+                                                          value as int?;
+                                                    });
+                                                  },
                                                 ),
-                                              );
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                              primary: Colors.blue,
-                                              onPrimary: Colors.white,
-                                              padding: EdgeInsets.symmetric(
-                                                  vertical: 15, horizontal: 30),
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
                                               ),
-                                              side: BorderSide(
-                                                color: Colors.blue,
-                                                width: 2,
-                                              ),
-                                            ),
-                                            child: Text('คนดูแล'),
-                                          ),
-                                          SizedBox(
-                                              height:
-                                                  10), // ระยะห่าง 3 ระหว่างปุ่ม
-                                          ElevatedButton(
-                                            onPressed: () {
-                                              Navigator.pushReplacement(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      HomeMainPatientUI(),
+                                              ListTile(
+                                                title: Text('ผู้ป่วย'),
+                                                leading: Radio(
+                                                  value: 1,
+                                                  groupValue: _selectedOption,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      _selectedOption =
+                                                          value as int?;
+                                                    });
+                                                  },
                                                 ),
-                                              );
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                              primary: Colors.blue,
-                                              onPrimary: Colors.white,
-                                              padding: EdgeInsets.symmetric(
-                                                  vertical: 15, horizontal: 30),
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
                                               ),
-                                              side: BorderSide(
-                                                color: Colors.blue,
-                                                width: 2,
-                                              ),
-                                            ),
-                                            child: Text('ผู้ป่วย'),
+                                            ],
                                           ),
-                                        ],
-                                      ),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(
+                                                    context); // Close the AlertDialog
+                                                if (_selectedOption == 0) {
+                                                  Navigator.pushReplacement(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          HomeMainCareUI(),
+                                                    ),
+                                                  );
+                                                } else if (_selectedOption ==
+                                                    1) {
+                                                  Navigator.pushReplacement(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          HomeMainPatientUI(),
+                                                    ),
+                                                  );
+                                                }
+                                              },
+                                              child: Text('OK'),
+                                            ),
+                                          ],
+                                        );
+                                      },
                                     );
                                   },
                                 );

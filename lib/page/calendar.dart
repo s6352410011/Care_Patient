@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:project_final_67/color.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() {
   runApp(MyApp());
@@ -47,13 +50,13 @@ class _CalendarUIState extends State<CalendarUI> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: Colors.grey[200], // กำหนดสีพื้นหลังของ AlertDialog
-          title: Text('Add Your Event'),
+          title: Text('เพิ่มกิจกรรม'),
           content: Container(
             width: 300,
             child: TextFormField(
               controller: _eventController,
               decoration: InputDecoration(
-                hintText: 'Enter your event',
+                hintText: 'ชื่อกิจกรรม',
               ),
               onSaved: (value) {
                 // Save the value entered by the user (currently not used)
@@ -67,7 +70,7 @@ class _CalendarUIState extends State<CalendarUI> {
                 _eventController.clear();
                 Navigator.of(context).pop();
               },
-              child: Text('Cancel'),
+              child: Text('ยกเลิก'),
             ),
             TextButton(
               onPressed: () {
@@ -76,7 +79,7 @@ class _CalendarUIState extends State<CalendarUI> {
                 _eventController.clear();
                 Navigator.of(context).pop();
               },
-              child: Text('Save'),
+              child: Text('บันทึก'),
             ),
           ],
         );
@@ -102,7 +105,8 @@ class _CalendarUIState extends State<CalendarUI> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Calendar'),
+        backgroundColor: allColor.pr,
+        title: Text('ปฎิทิน'),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _addEvent,
@@ -151,33 +155,35 @@ class _CalendarUIState extends State<CalendarUI> {
             Padding(
               padding: const EdgeInsets.only(left: 20, top: 5),
               child: Text(
-                'Events :',
+                'กิจกรรม :',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
+            SizedBox(height: 10),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: _events.entries.map((entry) {
                 if (isSameDay(entry.key, _selectedDay)) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
+                    children: entry.value.asMap().entries.map((eventEntry) {
+                      final int index = eventEntry.key;
+                      final String event = eventEntry.value;
+
+                      return Padding(
+                        padding:
+                            const EdgeInsets.only(top: 5, left: 10, right: 10),
                         child: Card(
                           color: _selectedDay == entry.key
                               ? Colors.grey[300]
                               : Colors.transparent,
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: entry.value.length,
-                            itemBuilder: (context, index) {
-                              final event = entry.value[index];
-                              return ListTile(
+                          child: Column(
+                            children: [
+                              ListTile(
                                 title: Text(
                                   event,
                                   style: TextStyle(
-                                    fontSize: 20, // ปรับขนาดตัวอักษรตามต้องการ
+                                    fontSize: 20,
                                   ),
                                 ),
                                 trailing: Row(
@@ -186,33 +192,33 @@ class _CalendarUIState extends State<CalendarUI> {
                                     IconButton(
                                       icon: Icon(Icons.edit),
                                       onPressed: () {
-                                        // Show edit event dialog
+                                        // แสดงหน้าต่างแก้ไขกิจกรรม
                                         showDialog(
                                           context: context,
                                           builder: (BuildContext context) {
                                             return AlertDialog(
-                                              title: Text('Edit Event'),
+                                              title: Text('แก้ไขกิจกรรม'),
                                               content: TextFormField(
                                                 controller: _eventController,
                                                 decoration: InputDecoration(
-                                                  hintText: 'Enter your event',
+                                                  hintText: 'ชื่อกิจกรรมของคุณ',
                                                 ),
                                                 onSaved: (value) {
-                                                  // Save the value entered by the user (currently not used)
+                                                  // บันทึกค่าที่ผู้ใช้ป้อน (ในปัจจุบันยังไม่ได้ใช้)
                                                 },
                                               ),
                                               actions: <Widget>[
                                                 TextButton(
                                                   onPressed: () {
-                                                    // Clear the text field and close the dialog
+                                                    // เคลียร์ช่องข้อความและปิดหน้าต่าง
                                                     _eventController.clear();
                                                     Navigator.of(context).pop();
                                                   },
-                                                  child: Text('Cancel'),
+                                                  child: Text('ยกเลิก'),
                                                 ),
                                                 TextButton(
                                                   onPressed: () {
-                                                    // Update the event
+                                                    // อัปเดตกิจกรรม
                                                     if (_selectedDay != null &&
                                                         _eventController
                                                             .text.isNotEmpty) {
@@ -225,11 +231,11 @@ class _CalendarUIState extends State<CalendarUI> {
                                                             updatedEvent;
                                                       });
                                                     }
-                                                    // Clear the text field and close the dialog
+                                                    // เคลียร์ช่องข้อความและปิดหน้าต่าง
                                                     _eventController.clear();
                                                     Navigator.of(context).pop();
                                                   },
-                                                  child: Text('Save'),
+                                                  child: Text('บันทึก'),
                                                 ),
                                               ],
                                             );
@@ -240,31 +246,31 @@ class _CalendarUIState extends State<CalendarUI> {
                                     IconButton(
                                       icon: Icon(Icons.delete),
                                       onPressed: () {
-                                        // Show confirmation dialog
+                                        // แสดงหน้าต่างยืนยัน
                                         showDialog(
                                           context: context,
                                           builder: (BuildContext context) {
                                             return AlertDialog(
-                                              title: Text("Confirmation"),
+                                              title: Text("ยืนยัน"),
                                               content: Text(
-                                                  "Are you sure you want to delete this event?"),
+                                                  "คุณแน่ใจหรือไม่ว่าต้องการลบกิจกรรมนี้?"),
                                               actions: <Widget>[
                                                 TextButton(
-                                                  child: Text("Cancel"),
+                                                  child: Text("ยกเลิก"),
                                                   onPressed: () {
-                                                    // Close the dialog
+                                                    // ปิดหน้าต่าง
                                                     Navigator.of(context).pop();
                                                   },
                                                 ),
                                                 TextButton(
-                                                  child: Text("OK"),
+                                                  child: Text("ตกลง"),
                                                   onPressed: () {
-                                                    // Delete the event
+                                                    // ลบกิจกรรม
                                                     setState(() {
                                                       _events[entry.key]!
                                                           .remove(event);
                                                     });
-                                                    // Close the dialog
+                                                    // ปิดหน้าต่าง
                                                     Navigator.of(context).pop();
                                                   },
                                                 ),
@@ -276,12 +282,12 @@ class _CalendarUIState extends State<CalendarUI> {
                                     ),
                                   ],
                                 ),
-                              );
-                            },
+                              ),
+                            ],
                           ),
                         ),
-                      ),
-                    ],
+                      );
+                    }).toList(),
                   );
                 } else {
                   return SizedBox.shrink();
