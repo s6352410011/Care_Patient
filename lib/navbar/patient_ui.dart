@@ -154,7 +154,7 @@ class HomePatientUI extends StatelessWidget {
         switch (label) {
           case 'รายชื่อผู้ดูแล':
             iconData = Icons.recent_actors;
-            iconColor = AllColor.sc;
+            iconColor = AllColor.pr;
             break;
           case 'รายชื่อทั้งหมด':
             iconData = Icons.list;
