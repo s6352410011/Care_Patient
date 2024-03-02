@@ -17,6 +17,8 @@ class LoginUI extends StatefulWidget {
 class _LoginUIState extends State<LoginUI> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+  int? _selectedOption =
+      0; // ประกาศตัวแปร _selectedOption เพื่อเก็บค่าที่ถูกเลือก
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,7 @@ class _LoginUIState extends State<LoginUI> {
                 child: Column(
                   children: <Widget>[
                     FadeInUp(
-                      duration: Duration(milliseconds: 1800),
+                      duration: Duration(milliseconds: 1900),
                       child: Container(
                         padding: EdgeInsets.all(5),
                         decoration: BoxDecoration(
@@ -103,129 +105,128 @@ class _LoginUIState extends State<LoginUI> {
                       duration: Duration(milliseconds: 1900),
                       child: Column(
                         children: [
-                          ElevatedButton(
-                            onPressed: () {
-                              if (_emailController.text.isNotEmpty &&
-                                  _passwordController.text.isNotEmpty) {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    int? _selectedOption;
-                                    return StatefulBuilder(
-                                      builder: (BuildContext context,
-                                          StateSetter setState) {
-                                        return AlertDialog(
-                                          title: Text('เลือกประเภทที่คุณเป็น'),
-                                          content: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              ListTile(
-                                                title: Text('คนดูแล'),
-                                                leading: Radio(
-                                                  value: 0,
-                                                  groupValue: _selectedOption,
-                                                  onChanged: (value) {
-                                                    setState(() {
-                                                      _selectedOption =
-                                                          value as int?;
-                                                    });
-                                                  },
-                                                ),
-                                              ),
-                                              ListTile(
-                                                title: Text('ผู้ป่วย'),
-                                                leading: Radio(
-                                                  value: 1,
-                                                  groupValue: _selectedOption,
-                                                  onChanged: (value) {
-                                                    setState(() {
-                                                      _selectedOption =
-                                                          value as int?;
-                                                    });
-                                                  },
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.pop(
-                                                    context); // Close the AlertDialog
-                                                if (_selectedOption == 0) {
-                                                  Navigator.pushReplacement(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          HomeMainCareUI(),
-                                                    ),
-                                                  );
-                                                } else if (_selectedOption ==
-                                                    1) {
-                                                  Navigator.pushReplacement(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          HomeMainPatientUI(),
-                                                    ),
-                                                  );
-                                                }
-                                              },
-                                              child: Text('OK'),
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    );
-                                  },
-                                );
-                              } else {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: Text('Error'),
-                                      content: Text(
-                                        'Please enter both email and password.',
-                                      ),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: Text('OK'),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              }
-                            },
-                            style: ElevatedButton.styleFrom(
-                              minimumSize: Size(200, 50),
-                              padding: EdgeInsets.symmetric(vertical: 16.0),
-                              backgroundColor: AllColor.pr,
-                              foregroundColor: AllColor.pr,
-                              elevation: 5,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              side: BorderSide(
-                                color: Color.fromARGB(255, 136, 226, 176),
-                                width: 2,
-                              ),
-                            ),
-                            child: Center(
-                              child: Text(
-                                "Login",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                          Text(
+                            'กรุณาเลือกประเภทเข้าใช้',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
                             ),
                           ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: ListTile(
+                                  title: Text(
+                                    'คนดูแล',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                  leading: Radio(
+                                    value: 0,
+                                    groupValue: _selectedOption,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _selectedOption = value as int?;
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: ListTile(
+                                  title: Text(
+                                    'ผู้ป่วย',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                  leading: Radio(
+                                    value: 1,
+                                    groupValue: _selectedOption,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _selectedOption = value as int?;
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    FadeInUp(
+                      duration: Duration(milliseconds: 1900),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (_emailController.text.isNotEmpty &&
+                              _passwordController.text.isNotEmpty) {
+                            if (_selectedOption != null) {
+                              if (_selectedOption == 0) {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => HomeMainCareUI(),
+                                  ),
+                                );
+                              } else if (_selectedOption == 1) {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => HomeMainPatientUI(),
+                                  ),
+                                );
+                              }
+                            }
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text('Error'),
+                                  content: Text(
+                                      'Please enter both email and password.'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text('OK'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(200, 50),
+                          padding: EdgeInsets.symmetric(vertical: 16.0),
+                          backgroundColor: AllColor.pr,
+                          foregroundColor: AllColor.pr,
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          side: BorderSide(
+                            color: Color.fromARGB(255, 136, 226, 176),
+                            width: 2,
+                          ),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Login",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -280,7 +281,6 @@ class _LoginUIState extends State<LoginUI> {
                         ),
                       ),
                     ),
-
                     SizedBox(
                       height: 30,
                     ),
@@ -362,7 +362,6 @@ class _LoginUIState extends State<LoginUI> {
                         ),
                       ),
                     ),
-
                     SizedBox(
                       height: 30,
                     ),
