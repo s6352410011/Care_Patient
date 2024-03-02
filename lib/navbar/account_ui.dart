@@ -120,7 +120,7 @@ class _AccountUIState extends State<AccountUI> {
                 );
               },
               style: ElevatedButton.styleFrom(
-                primary: Colors.green,
+                backgroundColor: Colors.green,
                 fixedSize: Size(200, 50),
               ),
               child:
@@ -158,7 +158,7 @@ class _AccountUIState extends State<AccountUI> {
                 );
               },
               style: ElevatedButton.styleFrom(
-                primary: Colors.red,
+                backgroundColor: Colors.red,
                 fixedSize: Size(200, 50),
               ),
               child: Row(

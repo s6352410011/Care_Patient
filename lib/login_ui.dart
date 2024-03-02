@@ -204,8 +204,8 @@ class _LoginUIState extends State<LoginUI> {
                             style: ElevatedButton.styleFrom(
                               minimumSize: Size(200, 50),
                               padding: EdgeInsets.symmetric(vertical: 16.0),
-                              primary: Color.fromARGB(255, 55, 233, 180),
-                              onPrimary: Color.fromARGB(255, 136, 138, 137),
+                              backgroundColor: AllColor.pr,
+                              foregroundColor: AllColor.pr,
                               elevation: 5,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
@@ -245,8 +245,8 @@ class _LoginUIState extends State<LoginUI> {
                         style: ElevatedButton.styleFrom(
                           minimumSize: Size(200, 50),
                           padding: EdgeInsets.symmetric(vertical: 16.0),
-                          primary: Color.fromARGB(255, 55, 233, 180),
-                          onPrimary: Color.fromARGB(255, 136, 138, 137),
+                          backgroundColor: Color.fromARGB(255, 55, 233, 180),
+                          foregroundColor: Color.fromARGB(255, 136, 138, 137),
                           elevation: 5,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -293,8 +293,8 @@ class _LoginUIState extends State<LoginUI> {
                         style: ElevatedButton.styleFrom(
                           minimumSize: Size(200, 50),
                           padding: EdgeInsets.symmetric(vertical: 16.0),
-                          primary: Colors.red, // สีพื้นหลังของปุ่ม
-                          onPrimary: Colors.white, // สีของข้อความบนปุ่ม
+                          backgroundColor: Colors.red, // สีพื้นหลังของปุ่ม
+                          foregroundColor: Colors.white, // สีของข้อความบนปุ่ม
                           elevation: 5, // เงาของปุ่ม
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -333,8 +333,8 @@ class _LoginUIState extends State<LoginUI> {
                         style: ElevatedButton.styleFrom(
                           minimumSize: Size(200, 50),
                           padding: EdgeInsets.symmetric(vertical: 16.0),
-                          primary: Colors.blue, // สีพื้นหลังของปุ่ม
-                          onPrimary: Colors.white, // สีของข้อความบนปุ่ม
+                          backgroundColor: Colors.blue, // สีพื้นหลังของปุ่ม
+                          foregroundColor: Colors.white, // สีของข้อความบนปุ่ม
                           elevation: 5, // เงาของปุ่ม
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),

@@ -94,7 +94,7 @@ class _AccountSettingUIState extends State<AccountSettingUI> {
                   // รหัสที่ต้องการให้ทำเมื่อปุ่มถูกกด
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.blue,
+                  backgroundColor: Colors.blue,
                   fixedSize: Size(200, 50), // สีพื้นหลังของปุ่ม
                 ),
                 child: Text(
@@ -136,7 +136,7 @@ class _AccountSettingUIState extends State<AccountSettingUI> {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.red, // สีปุ่มแดง
+                  backgroundColor: Colors.red, // สีปุ่มแดง
                   fixedSize: Size(200, 50),
                 ),
                 child: Text('Delete Account',

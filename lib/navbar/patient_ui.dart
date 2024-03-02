@@ -120,7 +120,7 @@ class HomePatientUI extends StatelessWidget {
                   icon: Icon(iconData, color: iconColor),
                   label: Text(label),
                   style: ElevatedButton.styleFrom(
-                    onPrimary: Colors.white,
+                    foregroundColor: Colors.white,
                     textStyle: const TextStyle(fontSize: 16.0),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
@@ -128,7 +128,7 @@ class HomePatientUI extends StatelessWidget {
                         color: Color.fromARGB(255, 255, 255, 255),
                       ),
                     ),
-                    primary: AllColor.sc,
+                    backgroundColor: AllColor.sc,
                   ),
                 ),
               ),

@@ -255,8 +255,8 @@ class _RegisterUIState extends State<RegisterUI> {
                           style: ElevatedButton.styleFrom(
                             minimumSize: Size(200, 50),
                             padding: EdgeInsets.symmetric(vertical: 16.0),
-                            primary: Color.fromARGB(255, 55, 233, 180),
-                            onPrimary: Color.fromARGB(255, 136, 138, 137),
+                            backgroundColor: Color.fromARGB(255, 55, 233, 180),
+                            foregroundColor: Color.fromARGB(255, 136, 138, 137),
                             elevation: 5,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
